@@ -1,3 +1,0 @@
-C:/Users/vassg031/CLionProjects/FaceRecognition/Driver/cmake-build-debug/CMakeFiles/Driver.dir
-C:/Users/vassg031/CLionProjects/FaceRecognition/Driver/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/vassg031/CLionProjects/FaceRecognition/Driver/cmake-build-debug/CMakeFiles/rebuild_cache.dir
