@@ -1,0 +1,3 @@
+C:/Users/vassg031/CLionProjects/FaceRecognition/FaceLib/build/CMakeFiles/FaceLib.dir
+C:/Users/vassg031/CLionProjects/FaceRecognition/FaceLib/build/CMakeFiles/edit_cache.dir
+C:/Users/vassg031/CLionProjects/FaceRecognition/FaceLib/build/CMakeFiles/rebuild_cache.dir
