@@ -1,4 +1,4 @@
-/Users/manwelbugeja/Projects/libfacereg/cmake-build-debug/CMakeFiles/FaceLib.dir
-/Users/manwelbugeja/Projects/libfacereg/cmake-build-debug/CMakeFiles/Facelib.dir
-/Users/manwelbugeja/Projects/libfacereg/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/manwelbugeja/Projects/libfacereg/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/vassg031/CLionProjects/FaceRecognition/cmake-build-debug/CMakeFiles/FaceLib.dir
+C:/Users/vassg031/CLionProjects/FaceRecognition/cmake-build-debug/CMakeFiles/Facelib.dir
+C:/Users/vassg031/CLionProjects/FaceRecognition/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/vassg031/CLionProjects/FaceRecognition/cmake-build-debug/CMakeFiles/rebuild_cache.dir

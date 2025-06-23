@@ -1,16 +1,7 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/manwelbugeja/Projects/libfacereg -B /Users/manwelbugeja/Projects/libfacereg/cmake-build-debug
--- The C compiler identification is AppleClang 16.0.0.16000026
--- The CXX compiler identification is AppleClang 16.0.0.16000026
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
+"C:\Users\vassg031\AppData\Local\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Users/vassg031/AppData/Local/JetBrains/CLion 2024.3.3/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\vassg031\CLionProjects\FaceRecognition -B C:\Users\vassg031\CLionProjects\FaceRecognition\cmake-build-debug
+-- OpenCV_VERSION: 4.5.5
+-- OpenCV_INCLUDE_DIRS: C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/include
+-- OpenCV_LIBS: opencv_calib3d;opencv_core;opencv_dnn;opencv_features2d;opencv_flann;opencv_gapi;opencv_highgui;opencv_imgcodecs;opencv_imgproc;opencv_ml;opencv_objdetect;opencv_photo;opencv_stitching;opencv_video;opencv_videoio
 -- Configuring done (1.2s)
--- Generating done (0.0s)
--- Build files have been written to: /Users/manwelbugeja/Projects/libfacereg/cmake-build-debug
+-- Generating done (0.4s)
+-- Build files have been written to: C:/Users/vassg031/CLionProjects/FaceRecognition/cmake-build-debug
