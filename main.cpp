@@ -1,13 +1,15 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cmath>
 #include "FaceLib.h"
 
 int main() {
     try {
-        // Load Haar cascade for face detection
-        // You'll need to download this file from OpenCV's GitHub repository
-        const std::string cascadePath = "C:/Users/vassg031/CLionProjects/FaceRecognition/haarcascade_frontalface_alt.xml";
+        // Load single Haar cascade for face detection
+        const std::string cascadePath = "C:/Users/vassg031/CLionProjects/FaceRecognition/Cascade/haarcascade_frontalface_alt.xml";
+
         std::cout << "Loading Haar cascade...\n";
         if (!loadHaarCascade(cascadePath)) {
             std::cerr << "Failed to load Haar cascade. Please check the path.\n";
@@ -15,14 +17,14 @@ int main() {
         }
 
         // Load and display image from binary
-        const std::string imagePath = "C:/Users/vassg031/CLionProjects/FaceRecognition/HelloThere.jpg";
+        const std::string imagePath = "C:/Users/vassg031/CLionProjects/FaceRecognition/face.jpg";
         std::cout << "\nReading image file into memory...\n";
         std::vector<unsigned char> imageData = readImageFile(imagePath);
         std::cout << "Image loaded. Size: " << imageData.size() << " bytes\n";
 
         // Load original image
         std::cout << "Decoding color image...\n";
-        ImageData* originalImage = loadImageFromBinary(imageData, false);
+        ImageData* originalImage = loadImageFromBinary(imageData);
         int width, height;
         getImageDimensions(originalImage, width, height);
         std::cout << "Original image dimensions: " << width << "x" << height << '\n';
@@ -30,14 +32,15 @@ int main() {
         // Display original image
         displayImage(originalImage, "1. Original Image", 3000);
 
-        // Detect faces in the image
+        // Detect faces
         std::cout << "\nDetecting faces...\n";
         std::vector<FaceRect> faces = detectFaces(originalImage, 1.1, 3, 50);
+        std::cout << "Detected " << faces.size() << " face(s)\n";
 
         if (faces.empty()) {
             std::cout << "No faces detected in the image.\n";
         } else {
-            std::cout << "Found " << faces.size() << " face(s):\n";
+            std::cout << "Face detections:\n";
             for (size_t i = 0; i < faces.size(); ++i) {
                 std::cout << "  Face " << (i+1) << ": x=" << faces[i].x
                          << ", y=" << faces[i].y
@@ -48,11 +51,11 @@ int main() {
             // Draw rectangles around detected faces
             std::cout << "\nDrawing face rectangles...\n";
             ImageData* imageWithFaces = drawFaceRectangles(originalImage, faces);
-            displayImage(imageWithFaces, "2. Image with Face Detection", 3000);
+            displayImage(imageWithFaces, "2. Face Detection", 3000);
 
-            // Crop to the largest face
-            std::cout << "\nCropping to largest face...\n";
-            ImageData* croppedFace = cropToLargestFace(originalImage, 0.2); // 20% padding
+            // Crop to the largest face with no padding
+            std::cout << "\nCropping to largest face (no padding)...\n";
+            ImageData* croppedFace = cropToLargestFace(originalImage, 0.0); // No padding
             getImageDimensions(croppedFace, width, height);
             std::cout << "Cropped face dimensions: " << width << "x" << height << '\n';
 

@@ -70,13 +70,13 @@ FACELIB_API ImageData* loadImageFromFile(const std::string& filename) {
     }
 }
 
-FACELIB_API ImageData* loadImageFromBinary(const std::vector<unsigned char>& imageData, bool grayscale) {
+
+FACELIB_API ImageData* loadImageFromBinary(const std::vector<unsigned char>& imageData) {
     try {
-        int flags = grayscale ? cv::IMREAD_GRAYSCALE : cv::IMREAD_COLOR;
+        int flags = cv::IMREAD_UNCHANGED;  // Load image as-is, preserving alpha channel if present
         cv::Mat image = cv::imdecode(imageData, flags);
         if (image.empty()) {
-            std::string mode = grayscale ? "grayscale" : "color";
-            throw ImageProcessingException("Failed to decode " + mode + " image from binary data");
+            throw ImageProcessingException("Failed to decode image from binary data");
         }
         return new ImageData(image);
     } catch (const cv::Exception& e) {
