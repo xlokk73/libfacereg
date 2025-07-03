@@ -8,7 +8,7 @@
 int main() {
     try {
         // Load single Haar cascade for face detection
-        const std::string cascadePath = "C:/Users/vassg031/CLionProjects/FaceRecognition/Cascade/haarcascade_frontalface_alt.xml";
+        const std::string cascadePath = "../Cascade/haarcascade_frontalface_alt.xml";
 
         std::cout << "Loading Haar cascade...\n";
         if (!loadHaarCascade(cascadePath)) {
@@ -17,7 +17,7 @@ int main() {
         }
 
         // Load and display image from binary
-        const std::string imagePath = "C:/Users/vassg031/CLionProjects/FaceRecognition/face.jpg";
+        const std::string imagePath = "../face.jpg";
         std::cout << "\nReading image file into memory...\n";
         std::vector<unsigned char> imageData = readImageFile(imagePath);
         std::cout << "Image loaded. Size: " << imageData.size() << " bytes\n";

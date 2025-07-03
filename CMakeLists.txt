@@ -1,44 +1,46 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 project(FaceRecognition)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Set the OpenCV_DIR to point to your specific OpenCV installation
 set(OpenCV_DIR "C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib")
 
-# Find OpenCV package
+# Find the OpenCV package. This is required for the project to build.
 find_package(OpenCV REQUIRED)
-message(STATUS "OpenCV_VERSION: ${OpenCV_VERSION}")
-message(STATUS "OpenCV_INCLUDE_DIRS: ${OpenCV_INCLUDE_DIRS}")
-message(STATUS "OpenCV_LIBS: ${OpenCV_LIBS}")
 
-# Include OpenCV directories
-include_directories(${OpenCV_INCLUDE_DIRS})
+# Log OpenCV details for debugging purposes.
+message(STATUS "OpenCV found: ${OpenCV_VERSION}")
+message(STATUS "Using OpenCV libraries: ${OpenCV_LIBS}")
+message(STATUS "Using OpenCV includes: ${OpenCV_INCLUDE_DIRS}")
 
-# Create FaceLib library
+# Define the shared library target "FaceLib".
 add_library(FaceLib SHARED
         FaceLib.cpp
         FaceLib.h
 )
 
-# Add compiler definition when building the library
+# Define FACELIB_EXPORTS when compiling the FaceLib library itself.
+# This is used by FaceLib.h to set the correct dllexport/dllimport attributes.
 target_compile_definitions(FaceLib PRIVATE FACELIB_EXPORTS)
 
-# Link OpenCV to FaceLib
-target_link_libraries(FaceLib ${OpenCV_LIBS})
+# Link FaceLib to the required OpenCV headers and libraries.
+# PUBLIC propagates these properties to targets that link against FaceLib.
+target_include_directories(FaceLib PUBLIC ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(FaceLib PUBLIC ${OpenCV_LIBS})
 
-# Create main executable
-add_executable(Facelib main.cpp)
+# Define the main executable for the application.
+add_executable(FaceRecognitionApp main.cpp)
 
-# Link to FaceLib
-target_link_libraries(Facelib FaceLib)
+# Link the executable against our FaceLib library.
+target_link_libraries(FaceRecognitionApp PRIVATE FaceLib)
 
-# If needed for filesystem functionality
-if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-    target_link_libraries(Facelib stdc++fs)
+# Add stdc++fs for older GCC compilers that require it for <filesystem>.
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.0)
+    target_link_libraries(FaceRecognitionApp PRIVATE stdc++fs)
 endif()
 
-# Set output directories
+# Set standardized output directories for executables and libraries.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
