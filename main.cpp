@@ -5,56 +5,84 @@
 
 int main() {
     try {
+        // Load Haar cascade for face detection
+        // You'll need to download this file from OpenCV's GitHub repository
+        const std::string cascadePath = "C:/Users/vassg031/CLionProjects/FaceRecognition/haarcascade_frontalface_alt.xml";
+        std::cout << "Loading Haar cascade...\n";
+        if (!loadHaarCascade(cascadePath)) {
+            std::cerr << "Failed to load Haar cascade. Please check the path.\n";
+            return EXIT_FAILURE;
+        }
+
         // Load and display image from binary
         const std::string imagePath = "C:/Users/vassg031/CLionProjects/FaceRecognition/HelloThere.jpg";
         std::cout << "\nReading image file into memory...\n";
         std::vector<unsigned char> imageData = readImageFile(imagePath);
         std::cout << "Image loaded. Size: " << imageData.size() << " bytes\n";
 
-        // Load and display color image
+        // Load original image
         std::cout << "Decoding color image...\n";
-        ImageData* colorImage = loadImageFromBinary(imageData, false);
+        ImageData* originalImage = loadImageFromBinary(imageData, false);
         int width, height;
-        getImageDimensions(colorImage, width, height);
-        std::cout << "Color image dimensions: " << width << "x" << height << '\n';
-        displayImage(colorImage, "Color Image (from binary)", 1000);
+        getImageDimensions(originalImage, width, height);
+        std::cout << "Original image dimensions: " << width << "x" << height << '\n';
 
-        // Load and display grayscale image
-        std::cout << "\nDecoding grayscale image...\n";
-        ImageData* grayImage = loadImageFromBinary(imageData, true);
-        getImageDimensions(grayImage, width, height);
-        std::cout << "Grayscale image dimensions: " << width << "x" << height << '\n';
-        displayImage(grayImage, "Grayscale Image (from binary)", 0);
+        // Display original image
+        displayImage(originalImage, "1. Original Image", 3000);
 
-        // Save images using binary approach (no file paths)
-        std::cout << "\nSaving original color image to binary...\n";
-        ImageData* originalColor = loadImageFromBinary(imageData, false); // Reload original
-        std::vector<unsigned char> savedOriginal = saveImageToBinary(originalColor, ".jpg");
+        // Detect faces in the image
+        std::cout << "\nDetecting faces...\n";
+        std::vector<FaceRect> faces = detectFaces(originalImage, 1.1, 3, 50);
 
-        // Save the grayscale image to binary
-        std::cout << "Saving grayscale image to binary...\n";
-        std::vector<unsigned char> savedGrayscale = saveImageToBinary(grayImage, ".png");
+        if (faces.empty()) {
+            std::cout << "No faces detected in the image.\n";
+        } else {
+            std::cout << "Found " << faces.size() << " face(s):\n";
+            for (size_t i = 0; i < faces.size(); ++i) {
+                std::cout << "  Face " << (i+1) << ": x=" << faces[i].x
+                         << ", y=" << faces[i].y
+                         << ", width=" << faces[i].width
+                         << ", height=" << faces[i].height << '\n';
+            }
 
-        // Optional: Write binary data to files if needed
-        std::cout << "\nOptionally writing binary data to files...\n";
-        writeBinaryToFile(savedOriginal, "C:/Users/vassg031/CLionProjects/FaceRecognition/saved_from_binary_original.jpg");
+            // Draw rectangles around detected faces
+            std::cout << "\nDrawing face rectangles...\n";
+            ImageData* imageWithFaces = drawFaceRectangles(originalImage, faces);
+            displayImage(imageWithFaces, "2. Image with Face Detection", 3000);
 
-        // Demonstrate round-trip: binary -> image -> binary
-        std::cout << "\nDemonstrating round-trip conversion...\n";
-        ImageData* roundTripImage = loadImageFromBinary(savedOriginal, false);
-        std::vector<unsigned char> roundTripBinary = saveImageToBinary(roundTripImage, ".png");
-        std::cout << "Round-trip completed. Final binary size: " << roundTripBinary.size() << " bytes\n";
+            // Crop to the largest face
+            std::cout << "\nCropping to largest face...\n";
+            ImageData* croppedFace = cropToLargestFace(originalImage, 0.2); // 20% padding
+            getImageDimensions(croppedFace, width, height);
+            std::cout << "Cropped face dimensions: " << width << "x" << height << '\n';
+
+            // Display cropped face
+            displayImage(croppedFace, "3. Cropped Face", 0); // Wait for key press
+
+            // Save the cropped face to binary
+            std::cout << "\nSaving cropped face to binary...\n";
+            std::vector<unsigned char> croppedFaceData = saveImageToBinary(croppedFace, ".jpg");
+
+            // Write the cropped face to file
+            std::cout << "Writing cropped face to file...\n";
+            writeBinaryToFile(croppedFaceData, "C:/Users/vassg031/CLionProjects/FaceRecognition/cropped_face.jpg");
+
+            // Clean up face detection images
+            deleteImage(imageWithFaces);
+            deleteImage(croppedFace);
+        }
 
         // Clean up memory
         std::cout << "\nCleaning up resources...\n";
-        deleteImage(colorImage);
-        deleteImage(grayImage);
-        deleteImage(originalColor);
-        deleteImage(roundTripImage);
+        deleteImage(originalImage);
 
         // Close all OpenCV windows
         std::cout << "Closing all windows...\n";
         closeAllWindows();
+    }
+    catch (const FaceDetectionException& e) {
+        std::cerr << "Face Detection Error: " << e.what() << '\n';
+        return EXIT_FAILURE;
     }
     catch (const ImageLoadException& e) {
         std::cerr << "Image Load Error: " << e.what() << '\n';
@@ -83,4 +111,4 @@ int main() {
 
     std::cout << "Program completed successfully.\n";
     return EXIT_SUCCESS;
-};
+}
