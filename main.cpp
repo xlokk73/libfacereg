@@ -1,117 +1,92 @@
+
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <cmath>
 #include "FaceLib.h"
 
+// Reusable function to process and save face from an image
+bool processAndSaveFace(const std::string& imagePath, const std::string& label, const std::string& outputPath) {
+try {
+std::cout << "\n=== Processing " << label << " ===\n";
+
+std::vector<unsigned char> imageData = readImageFile(imagePath);
+if (imageData.empty()) {
+std::cerr << "Error: " << label << " image is empty or could not be read.\n";
+return false;
+}
+
+ImageData* originalImage = loadImageFromBinary(imageData);
+int width, height;
+getImageDimensions(originalImage, width, height);
+std::cout << label << " dimensions: " << width << "x" << height << '\n';
+
+displayImage(originalImage, label + " - Original", 3000);
+
+std::vector<FaceRect> faces = detectFaces(originalImage, 1.1, 3, 50);
+std::cout << "Detected " << faces.size() << " face(s) in " << label << '\n';
+
+if (!faces.empty()) {
+ImageData* imageWithFaces = drawFaceRectangles(originalImage, faces);
+displayImage(imageWithFaces, label + " - Face Detection", 3000);
+
+ImageData* croppedFace = cropToLargestFace(originalImage, 0.0);
+ImageData* grayscaleFace = convertToGrayscale(croppedFace);
+getImageDimensions(grayscaleFace, width, height);
+std::cout << "Cropped Grayscale " << label << " dimensions: " << width << "x" << height << '\n';
+
+displayImage(grayscaleFace, label + " - Grayscale Face", 0);
+
+std::vector<unsigned char> croppedFaceData = saveImageToBinary(grayscaleFace, ".jpg");
+writeBinaryToFile(croppedFaceData, outputPath);
+
+deleteImage(imageWithFaces);
+deleteImage(croppedFace);
+deleteImage(grayscaleFace);
+} else {
+std::cout << "No faces detected in " << label << ".\n";
+}
+
+deleteImage(originalImage);
+return true;
+} catch (const std::exception& e) {
+std::cerr << "Error processing " << label << ": " << e.what() << '\n';
+return false;
+}
+}
+
 int main() {
-    try {
-        // Load single Haar cascade for face detection
-        const std::string cascadePath = "../Cascade/haarcascade_frontalface_alt.xml";
+try {
+const std::string cascadePath = "../Cascade/haarcascade_frontalface_alt.xml";
+std::cout << "Loading Haar cascade...\n";
+if (!loadHaarCascade(cascadePath)) {
+std::cerr << "Failed to load Haar cascade. Please check the path.\n";
+return EXIT_FAILURE;
+}
 
-        std::cout << "Loading Haar cascade...\n";
-        if (!loadHaarCascade(cascadePath)) {
-            std::cerr << "Failed to load Haar cascade. Please check the path.\n";
-            return EXIT_FAILURE;
-        }
+// List of images to process
+std::vector<std::pair<std::string, std::string>> imagesToProcess = {
+{"../face.jpg", "cropped_face1.jpg"},
+{"../face2.jpg", "cropped_face2.jpg"},
+};
 
-        // Load and display image from binary
-        const std::string imagePath = "../face.jpg";
-        std::cout << "\nReading image file into memory...\n";
-        std::vector<unsigned char> imageData = readImageFile(imagePath);
-        std::cout << "Image loaded. Size: " << imageData.size() << " bytes\n";
+// Process each image
+for (size_t i = 0; i < imagesToProcess.size(); ++i) {
+std::string label = "Face " + std::to_string(i + 1);
+std::string inputPath = imagesToProcess[i].first;
+std::string outputPath = "C:/Users/vassg031/CLionProjects/FaceRecognition/" + imagesToProcess[i].second;
 
-        // Load original image
-        std::cout << "Decoding color image...\n";
-        ImageData* originalImage = loadImageFromBinary(imageData);
-        int width, height;
-        getImageDimensions(originalImage, width, height);
-        std::cout << "Original image dimensions: " << width << "x" << height << '\n';
+bool success = processAndSaveFace(inputPath, label, outputPath);
+std::cout << label << ": " << (success ? "SUCCESS" : "FAILED") << "\n";
+}
 
-        // Display original image
-        displayImage(originalImage, "1. Original Image", 3000);
+std::cout << "\nClosing all windows...\n";
+closeAllWindows();
+}
+catch (const std::exception& e) {
+std::cerr << "Unexpected Error: " << e.what() << '\n';
+return EXIT_FAILURE;
+}
 
-        // Detect faces
-        std::cout << "\nDetecting faces...\n";
-        std::vector<FaceRect> faces = detectFaces(originalImage, 1.1, 3, 50);
-        std::cout << "Detected " << faces.size() << " face(s)\n";
-
-        if (faces.empty()) {
-            std::cout << "No faces detected in the image.\n";
-        } else {
-            std::cout << "Face detections:\n";
-            for (size_t i = 0; i < faces.size(); ++i) {
-                std::cout << "  Face " << (i+1) << ": x=" << faces[i].x
-                         << ", y=" << faces[i].y
-                         << ", width=" << faces[i].width
-                         << ", height=" << faces[i].height << '\n';
-            }
-
-            // Draw rectangles around detected faces
-            std::cout << "\nDrawing face rectangles...\n";
-            ImageData* imageWithFaces = drawFaceRectangles(originalImage, faces);
-            displayImage(imageWithFaces, "2. Face Detection", 3000);
-
-            // Crop to the largest face with no padding
-            std::cout << "\nCropping to largest face (no padding)...\n";
-            ImageData* croppedFace = cropToLargestFace(originalImage, 0.0); // No padding
-            getImageDimensions(croppedFace, width, height);
-            std::cout << "Cropped face dimensions: " << width << "x" << height << '\n';
-
-            // Display cropped face
-            displayImage(croppedFace, "3. Cropped Face", 0); // Wait for key press
-
-            // Save the cropped face to binary
-            std::cout << "\nSaving cropped face to binary...\n";
-            std::vector<unsigned char> croppedFaceData = saveImageToBinary(croppedFace, ".jpg");
-
-            // Write the cropped face to file
-            std::cout << "Writing cropped face to file...\n";
-            writeBinaryToFile(croppedFaceData, "C:/Users/vassg031/CLionProjects/FaceRecognition/cropped_face.jpg");
-
-            // Clean up face detection images
-            deleteImage(imageWithFaces);
-            deleteImage(croppedFace);
-        }
-
-        // Clean up memory
-        std::cout << "\nCleaning up resources...\n";
-        deleteImage(originalImage);
-
-        // Close all OpenCV windows
-        std::cout << "Closing all windows...\n";
-        closeAllWindows();
-    }
-    catch (const FaceDetectionException& e) {
-        std::cerr << "Face Detection Error: " << e.what() << '\n';
-        return EXIT_FAILURE;
-    }
-    catch (const ImageLoadException& e) {
-        std::cerr << "Image Load Error: " << e.what() << '\n';
-        return EXIT_FAILURE;
-    }
-    catch (const ImageSaveException& e) {
-        std::cerr << "Image Save Error: " << e.what() << '\n';
-        return EXIT_FAILURE;
-    }
-    catch (const ImageProcessingException& e) {
-        std::cerr << "Image Processing Error: " << e.what() << '\n';
-        return EXIT_FAILURE;
-    }
-    catch (const FileOperationException& e) {
-        std::cerr << "File Operation Error: " << e.what() << '\n';
-        return EXIT_FAILURE;
-    }
-    catch (const FaceLibException& e) {
-        std::cerr << "FaceLib Error: " << e.what() << '\n';
-        return EXIT_FAILURE;
-    }
-    catch (const std::exception& e) {
-        std::cerr << "Unexpected Error: " << e.what() << '\n';
-        return EXIT_FAILURE;
-    }
-
-    std::cout << "Program completed successfully.\n";
-    return EXIT_SUCCESS;
+std::cout << "Program completed successfully.\n";
+return EXIT_SUCCESS;
 }

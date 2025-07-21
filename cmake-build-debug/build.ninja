@@ -77,38 +77,38 @@ build libFaceLib.dll libFaceLib.dll.a: CXX_SHARED_LIBRARY_LINKER__FaceLib_Debug 
   TARGET_PDB = FaceLib.dll.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target Facelib
+# Object build statements for EXECUTABLE target FaceRecognitionApp
 
 
 #############################################
-# Order-only phony target for Facelib
+# Order-only phony target for FaceRecognitionApp
 
-build cmake_object_order_depends_target_Facelib: phony || cmake_object_order_depends_target_FaceLib
+build cmake_object_order_depends_target_FaceRecognitionApp: phony || cmake_object_order_depends_target_FaceLib
 
-build CMakeFiles/Facelib.dir/main.cpp.obj: CXX_COMPILER__Facelib_unscanned_Debug C$:/Users/vassg031/CLionProjects/FaceRecognition/main.cpp || cmake_object_order_depends_target_Facelib
-  DEP_FILE = CMakeFiles\Facelib.dir\main.cpp.obj.d
+build CMakeFiles/FaceRecognitionApp.dir/main.cpp.obj: CXX_COMPILER__FaceRecognitionApp_unscanned_Debug C$:/Users/vassg031/CLionProjects/FaceRecognition/main.cpp || cmake_object_order_depends_target_FaceRecognitionApp
+  DEP_FILE = CMakeFiles\FaceRecognitionApp.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -isystem C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/include
-  OBJECT_DIR = CMakeFiles\Facelib.dir
-  OBJECT_FILE_DIR = CMakeFiles\Facelib.dir
+  OBJECT_DIR = CMakeFiles\FaceRecognitionApp.dir
+  OBJECT_FILE_DIR = CMakeFiles\FaceRecognitionApp.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target Facelib
+# Link build statements for EXECUTABLE target FaceRecognitionApp
 
 
 #############################################
-# Link the executable Facelib.exe
+# Link the executable FaceRecognitionApp.exe
 
-build Facelib.exe: CXX_EXECUTABLE_LINKER__Facelib_Debug CMakeFiles/Facelib.dir/main.cpp.obj | libFaceLib.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_gapi455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_highgui455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_ml455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_objdetect455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_photo455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_stitching455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_video455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_calib3d455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_dnn455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_features2d455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_flann455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_videoio455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_imgcodecs455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_imgproc455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_core455.dll.a || libFaceLib.dll
+build FaceRecognitionApp.exe: CXX_EXECUTABLE_LINKER__FaceRecognitionApp_Debug CMakeFiles/FaceRecognitionApp.dir/main.cpp.obj | libFaceLib.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_gapi455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_highgui455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_ml455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_objdetect455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_photo455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_stitching455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_video455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_calib3d455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_dnn455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_features2d455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_flann455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_videoio455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_imgcodecs455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_imgproc455.dll.a C$:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_core455.dll.a || libFaceLib.dll
   FLAGS = -g
-  LINK_LIBRARIES = libFaceLib.dll.a  -lstdc++fs  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_gapi455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_highgui455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_ml455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_objdetect455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_photo455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_stitching455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_video455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_calib3d455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_dnn455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_features2d455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_flann455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_videoio455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_imgcodecs455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_imgproc455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_core455.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\Facelib.dir
+  LINK_LIBRARIES = libFaceLib.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_gapi455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_highgui455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_ml455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_objdetect455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_photo455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_stitching455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_video455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_calib3d455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_dnn455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_features2d455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_flann455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_videoio455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_imgcodecs455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_imgproc455.dll.a  C:/Users/vassg031/CLionProjects/FaceRecognition/OpenCV-MinGW-Build-OpenCV-4.5.5-x64/x64/mingw/lib/libopencv_core455.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\FaceRecognitionApp.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = Facelib.exe
-  TARGET_IMPLIB = libFacelib.dll.a
-  TARGET_PDB = Facelib.exe.dbg
+  TARGET_FILE = FaceRecognitionApp.exe
+  TARGET_IMPLIB = libFaceRecognitionApp.dll.a
+  TARGET_PDB = FaceRecognitionApp.exe.dbg
 
 
 #############################################
@@ -138,7 +138,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build FaceLib: phony libFaceLib.dll
 
-build Facelib: phony Facelib.exe
+build FaceRecognitionApp: phony FaceRecognitionApp.exe
 
 # =============================================================================
 # Folder targets.
@@ -148,7 +148,7 @@ build Facelib: phony Facelib.exe
 #############################################
 # Folder: C:/Users/vassg031/CLionProjects/FaceRecognition/cmake-build-debug
 
-build all: phony libFaceLib.dll Facelib.exe
+build all: phony libFaceLib.dll FaceRecognitionApp.exe
 
 # =============================================================================
 # Built-in targets

@@ -72,6 +72,7 @@ public:
 FACELIB_API ImageData* loadImageFromFile(const std::string& filename);
 FACELIB_API ImageData* loadImageFromBinary(const std::vector<unsigned char>& imageData);
 FACELIB_API void displayImage(const ImageData* image, const std::string& windowName, int waitTime=0);
+FACELIB_API ImageData* convertToGrayscale(const ImageData* image);
 FACELIB_API void closeAllWindows();
 
 // Image manipulation functions.

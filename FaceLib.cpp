@@ -319,3 +319,20 @@ FACELIB_API ImageData* drawFaceRectangles(const ImageData* image, const std::vec
         throw ImageProcessingException("OpenCV error while drawing rectangles: " + std::string(e.what()));
     }
 }
+FACELIB_API ImageData* convertToGrayscale(const ImageData* image) {
+    if (!image || image->mat.empty()) {
+        throw ImageProcessingException("Cannot convert empty or null image to grayscale");
+    }
+
+    try {
+        cv::Mat grayImage;
+        if (image->mat.channels() == 3) {
+            cv::cvtColor(image->mat, grayImage, cv::COLOR_BGR2GRAY);
+        } else {
+            grayImage = image->mat.clone(); // Already grayscale or single channel
+        }
+        return new ImageData(grayImage);
+    } catch (const cv::Exception& e) {
+        throw ImageProcessingException("OpenCV error during grayscale conversion: " + std::string(e.what()));
+    }
+}
